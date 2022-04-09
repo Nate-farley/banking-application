@@ -27,6 +27,8 @@ function Deposit(){
   const handleOnPressDeposit = () => {
     try {
       setBalance(Number(balance) + Number(depositAmount));
+      localStorage.setItem('balance', Number(balance) + Number(depositAmount))
+      window.location.reload()
       setSuccess(true);
     } catch(error) {
       setError(error);
@@ -49,7 +51,7 @@ function Deposit(){
       <button onClick={handleOnPressDeposit} disabled={depositAmount.toString().length == 0} type="submit" className="btn btn-light">Deposit</button>
       <br />
       {success  == true ? <p>Success! Balance Updated</p> : <p>{error}</p>}
-      <div>Balance: {balance}</div>
+      <div>Balance: {localStorage.getItem('balance')}</div>
     </div>
       }
     />

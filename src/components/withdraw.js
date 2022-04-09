@@ -24,7 +24,8 @@ function Withdraw(){
   }
 
   const handleOnPressWithdraw = () => {
-    if (Number(withdrawalAmount) > Number(balance)) {
+    const userBalance = localStorage.getItem('balance')
+    if (Number(withdrawalAmount) > Number(userBalance)) {
       setError('Transaction Failed');
       setSuccess(false);
       return;
@@ -32,6 +33,9 @@ function Withdraw(){
 
     try {
       setBalance(Number(balance) + Number(withdrawalAmount));
+      localStorage.setItem('balance', Number(userBalance) - Number(withdrawalAmount))
+
+      window.location.reload()
       setSuccess(true);
     } catch(error) {
       setError(error);
@@ -54,7 +58,7 @@ function Withdraw(){
       <button onClick={handleOnPressWithdraw} disabled={withdrawalAmount.toString().length == 0} type="submit" className="btn btn-light">Withdraw</button>
       <br />
       {success  == true ? <p>Success! Balance Updated</p> : <p>{error}</p>}
-        <div>Balance: {balance}</div>
+        <div>Balance: {localStorage.getItem('balance')}</div>
       </div>
       }
     />

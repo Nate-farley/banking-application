@@ -27,7 +27,8 @@ function Deposit(){
   const handleOnPressDeposit = () => {
     try {
       setBalance(Number(balance) + Number(depositAmount));
-      localStorage.setItem('balance', Number(balance) + Number(depositAmount))
+      const oldBalance = localStorage.getItem('balance')
+      localStorage.setItem('balance', Number(oldBalance) + Number(depositAmount))
       window.location.reload()
       setSuccess(true);
     } catch(error) {

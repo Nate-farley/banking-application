@@ -1,7 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const app = express()
-const PORT = 3001
+const PORT = 5000
 const { createUser, login, logout, deposit, withdraw, transfer, getUserBalance, getUsers } = require('./db')
 
 app.use(cors())

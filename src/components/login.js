@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Card from './context';
 import axios from 'axios'
 
@@ -6,6 +6,10 @@ function Login() {
   const [email, setEmail]       = React.useState('');
   const [password, setPassword] = React.useState('');
   const [status, setStatus]     = React.useState('')
+
+  useEffect(() => {
+    localStorage.setItem('authenticatedUser', '')
+  }, [])
 
   function validate(field, label) {
       if (!field) {

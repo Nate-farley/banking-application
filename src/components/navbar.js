@@ -60,16 +60,13 @@ function NavBar(){
           <li className="nav-item">
             <a className={`nav-link ${location.pathname == '/alldata/' ? 'text-primary' : ''}`} href="#/alldata/">AllData</a>
           </li>  
-          {
-            showLogin ?
+
             <li className="nav-item">
             <a className={`nav-link ${location.pathname == '/login/' ? 'text-primary' : ''}`} href="#/login/">Login</a>
           </li>
-          :
           <button onClick={logout}>
             Logout
           </button>
-          }        
         </ul>
 
       </div>

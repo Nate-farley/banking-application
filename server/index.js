@@ -137,10 +137,9 @@ if (process.env.NODE_ENV === 'production') {
     path.
     app.use(express.static(path.join(__dirname, '../', 'build')));
     app.get('*', (req, res) => {
-        console.log(process.cwd())
         console.log('attempt')
-        const patha = path.join(process.cwd(), '../', 'build/index.html')
+        const patha = path.join(__dirname, '../', 'build/index.html')
         console.log('Send file path: ' + patha)
-      res.sendFile(path.join(process.cwd(), '../', 'build/index.html'), err => res.status(500).send(__dirname + '   --' + 'UHSDA: ' + err));
+      res.sendFile(path.join(__dirname, '../', 'build/index.html'), err => res.status(500).send(process.cwd() + '   --' + 'UHSDA: ' + err));
     })
   }

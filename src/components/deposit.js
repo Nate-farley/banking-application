@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Card from "./context";
+import axios from 'axios'
 
 const re = /^[0-9\b]+$/;
 
@@ -10,6 +11,14 @@ function Deposit(){
   const [show, setShow] = React.useState(true);
   const [error, setError] = React.useState('');
   const [balance, setBalance] = React.useState(0);
+
+  useEffect(() => {
+    refreshBalance()
+  })
+
+  const getAuthenticatedUser = () => {
+    return localStorage.getItem('authenticatedUser')
+  }
 
   const handleOnChangeDepositAmount = (e) => {
     if (e.nativeEvent.data == '-') {
@@ -24,16 +33,36 @@ function Deposit(){
     }
   }
 
-  const handleOnPressDeposit = () => {
+  const handleOnPressDeposit = async () => {
+    const email = await getAuthenticatedUser()
     try {
-      setBalance(Number(balance) + Number(depositAmount));
-      const oldBalance = localStorage.getItem('balance')
-      localStorage.setItem('balance', Number(oldBalance) + Number(depositAmount))
-      window.location.reload()
+      await axios.post(`http://localhost:3001/bank/deposit?email=${email}&depositAmount=${depositAmount}`, {}, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json'
+        }
+      })
+      await refreshBalance()
       setSuccess(true);
     } catch(error) {
       setError(error);
       setSuccess(false);
+    }
+  }
+
+  const refreshBalance = async () => {
+    const email = await getAuthenticatedUser()
+    if (email) {
+      await axios.get(`http://localhost:3001/bank/balance?email=${email}`, {}, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json'
+        }
+      }).then(response => {
+        setBalance(response.data.balance)
+      }).catch(err => {
+
+      })
     }
   }
 

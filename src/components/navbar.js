@@ -1,6 +1,41 @@
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom'
+import axios from 'axios'
+
 function NavBar(){
+  const [showLogin, setShowLogin] = React.useState(false)
+  const [authUser, setAuthUser] = React.useState('')
   const location = useLocation()
+
+  const getAuthenticatedUser = () => {
+    return localStorage.getItem('authenticatedUser')
+  }
+
+  const logout = () => {
+    const email = getAuthenticatedUser()
+    axios.post(`http://localhost:3001/user/logout?email=${email}`, {}, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json'
+      }
+    }).then(() => {
+      localStorage.setItem('authenticatedUser', '')
+      window.location.reload()
+    })
+
+  }
+
+  useEffect(() => {
+    const email = getAuthenticatedUser()
+    if (email) {
+      setAuthUser('')
+      setShowLogin(false)
+    } else {
+      setAuthUser(email)
+      setShowLogin(true)
+    }
+  }, [authUser])
+
   return(
     <>
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -20,9 +55,23 @@ function NavBar(){
             <a className={`nav-link ${location.pathname == '/withdraw/' ? 'text-primary' : ''}`} href="#/withdraw/">Withdraw</a>
           </li>
           <li className="nav-item">
+            <a className={`nav-link ${location.pathname == '/transfer/' ? 'text-primary' : ''}`} href="#/transfer/">Transfer</a>
+          </li>     
+          <li className="nav-item">
             <a className={`nav-link ${location.pathname == '/alldata/' ? 'text-primary' : ''}`} href="#/alldata/">AllData</a>
-          </li>          
+          </li>  
+          {
+            showLogin ?
+            <li className="nav-item">
+            <a className={`nav-link ${location.pathname == '/login/' ? 'text-primary' : ''}`} href="#/login/">Login</a>
+          </li>
+          :
+          <button onClick={logout}>
+            Logout
+          </button>
+          }        
         </ul>
+
       </div>
     </nav>
     </>

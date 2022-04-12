@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Card from "./context";
+import axios from 'axios'
 
 const re = /^[0-9\b]+$/;
 
@@ -9,6 +10,14 @@ function Withdraw(){
   const [success, setSuccess] = React.useState(false);
   const [balance, setBalance] = React.useState(0);
   const [error, setError] = React.useState('');
+
+  useEffect(() => {
+    refreshBalance()
+  })
+
+  const getAuthenticatedUser = () => {
+    return localStorage.getItem('authenticatedUser')
+  }
 
   const handleOnChangeWithdrawAmount = (e) => {
     if (e.nativeEvent.data == '-') {
@@ -23,24 +32,41 @@ function Withdraw(){
     }
   }
 
-  const handleOnPressWithdraw = () => {
-    const userBalance = localStorage.getItem('balance')
-    if (Number(withdrawalAmount) > Number(userBalance)) {
+  const handleOnPressWithdraw = async () => {
+    if (Number(withdrawalAmount) > Number(balance)) {
       setError('Transaction Failed');
       setSuccess(false);
       return;
     }
 
     try {
+      const email = await getAuthenticatedUser()
       setBalance(Number(balance) + Number(withdrawalAmount));
-      localStorage.setItem('balance', Number(userBalance) - Number(withdrawalAmount))
-
-      window.location.reload()
+      await axios.post(`localhost:3001/bank/withdraw?email=${email}&withdrawAmount=${withdrawalAmount}`, {}, {
+        headers: {}
+      })
+      await refreshBalance()
       setSuccess(true);
     } catch(error) {
       setError(error);
       setSuccess(false);
     }
+  }
+
+  const refreshBalance = async () => {
+    const email = await getAuthenticatedUser()
+    if (email) {
+      await axios.get(`http://localhost:3001/bank/balance?email=${email}`, {}, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json'
+        }
+      }).then(response => {
+        setBalance(response.data.balance)
+      }).catch(err => {
+      })
+    }
+
   }
 
   return (

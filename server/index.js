@@ -134,7 +134,6 @@ app.get('/bank/users', async (req, res) => {
 })
 
 if (process.env.NODE_ENV === 'production') {
-    path.
     app.use(express.static(path.join(__dirname, '../', 'build')));
     app.get('*', (req, res) => {
         console.log('attempt')

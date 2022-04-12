@@ -36,7 +36,7 @@ function Deposit(){
   const handleOnPressDeposit = async () => {
     const email = await getAuthenticatedUser()
     try {
-      await axios.post(`${process.env.DOMAIN}/bank/deposit?email=${email}&depositAmount=${depositAmount}`, {}, {
+      await axios.post(`/bank/deposit?email=${email}&depositAmount=${depositAmount}`, {}, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json'
@@ -53,7 +53,7 @@ function Deposit(){
   const refreshBalance = async () => {
     const email = await getAuthenticatedUser()
     if (email) {
-      await axios.get(`${process.env.DOMAIN}/bank/balance?email=${email}`, {}, {
+      await axios.get(`/bank/balance?email=${email}`, {}, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json'

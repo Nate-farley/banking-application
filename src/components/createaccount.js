@@ -46,7 +46,7 @@ function CreateAccount(){
     if (!validate(password, 'password')) return;
     if (!validate(role,     'role'))     return;
     
-    axios.post(`${process.env.DOMAIN}/user/create?email=${email}&password=${password}&name=${name}&role=${role}`, {}, { 
+    axios.post(`/user/create?email=${email}&password=${password}&name=${name}&role=${role}`, {}, { 
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json'

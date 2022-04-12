@@ -41,7 +41,7 @@ function Transfer(){
           throw new Error('Failed')
       }
 
-      await axios.post(`${process.env.DOMAIN}/bank/transfer?ownerEmail=${email}&recipientEmail=${receiver}&amount=${transferAmount}`, {}, {
+      await axios.post(`/bank/transfer?ownerEmail=${email}&recipientEmail=${receiver}&amount=${transferAmount}`, {}, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json'
@@ -61,7 +61,7 @@ function Transfer(){
         throw new Error('Failed')
     }
 
-      await axios.get(`${process.env.DOMAIN}/bank/balance?email=${email}`, {}, {
+      await axios.get(`/bank/balance?email=${email}`, {}, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json'

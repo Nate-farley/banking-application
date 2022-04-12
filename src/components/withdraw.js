@@ -41,7 +41,7 @@ function Withdraw(){
 
     try {
       const email = await getAuthenticatedUser()
-      await axios.post(`/bank/withdraw?email=${email}&withdrawAmount=${withdrawalAmount}`, {}, {
+      await axios.post(`https://nathan-farleybankingbackend.herokuapp.com/bank/withdraw?email=${email}&withdrawAmount=${withdrawalAmount}`, {}, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json'
@@ -58,7 +58,7 @@ function Withdraw(){
   const refreshBalance = async () => {
     const email = await getAuthenticatedUser()
     if (email) {
-      await axios.get(`/bank/balance?email=${email}`, {}, {
+      await axios.get(`https://nathan-farleybankingbackend.herokuapp.com/bank/balance?email=${email}`, {}, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json'

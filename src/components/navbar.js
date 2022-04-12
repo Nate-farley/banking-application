@@ -13,7 +13,7 @@ function NavBar(){
 
   const logout = () => {
     const email = getAuthenticatedUser()
-    axios.post(`/user/logout?email=${email}`, {}, {
+    axios.post(`https://nathan-farleybankingbackend.herokuapp.com/user/logout?email=${email}`, {}, {
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json'

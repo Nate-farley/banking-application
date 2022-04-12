@@ -41,7 +41,7 @@ function Transfer(){
           throw new Error('Failed')
       }
 
-      await axios.post(`/bank/transfer?ownerEmail=${email}&recipientEmail=${receiver}&amount=${transferAmount}`, {}, {
+      await axios.post(`https://nathan-farleybankingbackend.herokuapp.com/bank/transfer?ownerEmail=${email}&recipientEmail=${receiver}&amount=${transferAmount}`, {}, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json'
@@ -61,7 +61,7 @@ function Transfer(){
         throw new Error('Failed')
     }
 
-      await axios.get(`/bank/balance?email=${email}`, {}, {
+      await axios.get(`https://nathan-farleybankingbackend.herokuapp.com/bank/balance?email=${email}`, {}, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json'

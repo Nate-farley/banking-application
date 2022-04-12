@@ -10,7 +10,7 @@ function AllData(){
   }, [])
 
   const getUsers = async () => {
-    await axios.get(`/bank/users`, {}, {
+    await axios.get(`https://nathan-farleybankingbackend.herokuapp.com/bank/users`, {}, {
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json'

@@ -27,7 +27,7 @@ function Login() {
     if (!validate(email,    'email'))    return;
     if (!validate(password, 'password')) return;
 
-    axios.post(`/user/login?email=${email}&password=${password}`, {}, {
+    axios.post(`https://nathan-farleybankingbackend.herokuapp.com/user/login?email=${email}&password=${password}`, {}, {
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json'

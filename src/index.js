@@ -15,22 +15,23 @@ import Login from './components/login';
 import Deposit from './components/deposit';
 import Withdraw from './components/withdraw';
 import AllData from './components/alldata';
+import Transfer from './components/transfer';
 
 function Spa() {
   return (
     <div className='w-100 h-100'>
       <NavBar/>
-      <UserContext.Provider value={{users:[{name:'abel',email:'abel@mit.edu',password:'secret',balance:100}]}}>
       <div className="w-100 h-100">
         <Routes>
           <Route path="/" exact element={<Home />} />
+          <Route path='/login/' element={<Login />} />
           <Route path="/CreateAccount/" element={<CreateAccount />} />
           <Route path="/deposit/" element={<Deposit />} />
+          <Route path='/transfer/' element={<Transfer />} />
           <Route path="/withdraw/" element={<Withdraw />} />
           <Route exact path="/alldata" element={<AllData />} /> 
           </Routes>
         </div>
-      </UserContext.Provider>     
       </div> 
   );
 }

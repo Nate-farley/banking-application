@@ -139,6 +139,6 @@ if (process.env.NODE_ENV === 'production') {
         console.log('attempt')
         const patha = path.join(__dirname, '../', 'build', 'index.html')
         console.log('Send file path: ' + patha)
-      res.sendFile(path.join(__dirname, '../', 'build', 'index.html'));
+      res.sendFile(path.join(__dirname, '../', 'build', 'index.html'), err => res.status(500).send('UHSDA: ' + err));
     })
   }

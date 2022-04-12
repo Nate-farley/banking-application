@@ -7,10 +7,6 @@ function Login() {
   const [password, setPassword] = React.useState('');
   const [status, setStatus]     = React.useState('')
 
-  useEffect(() => {
-    localStorage.setItem('authenticatedUser', '')
-  }, [])
-
   function validate(field, label) {
       if (!field) {
         setStatus('Error: ' + label);

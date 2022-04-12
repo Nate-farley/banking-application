@@ -10,7 +10,7 @@ function AllData(){
   }, [])
 
   const getUsers = async () => {
-    await axios.get(`http://localhost:3001/bank/users`, {}, {
+    await axios.get(`${process.env.DOMAIN}/bank/users`, {}, {
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Content-Type': 'application/json'

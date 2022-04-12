@@ -41,7 +41,7 @@ function Withdraw(){
 
     try {
       const email = await getAuthenticatedUser()
-      await axios.post(`http://localhost:3001/bank/withdraw?email=${email}&withdrawAmount=${withdrawalAmount}`, {}, {
+      await axios.post(`${process.env.DOMAIN}/bank/withdraw?email=${email}&withdrawAmount=${withdrawalAmount}`, {}, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json'
@@ -58,7 +58,7 @@ function Withdraw(){
   const refreshBalance = async () => {
     const email = await getAuthenticatedUser()
     if (email) {
-      await axios.get(`http://localhost:3001/bank/balance?email=${email}`, {}, {
+      await axios.get(`${process.env.DOMAIN}/bank/balance?email=${email}`, {}, {
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json'

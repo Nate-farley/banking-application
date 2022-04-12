@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const path = require('path')
 const app = express()
 const PORT = 5000
 const { createUser, login, logout, deposit, withdraw, transfer, getUserBalance, getUsers } = require('./db')
@@ -28,13 +29,6 @@ app.use(function (req, res, next) {
 app.listen(PORT, () => {
     console.log(`App is listening on port ${PORT}`)
 })
-
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '../frontend', 'build')));
-    app.get('/*', (req, res) => {
-      res.sendFile(path.join(__dirname, '../frontend', 'build', 'index.html'));
-    })
-  }
 
 app.post('/user/create', (req, res) => {
     const email = req.query.email
@@ -138,3 +132,10 @@ app.get('/bank/users', async (req, res) => {
 
     res.json({ users })
 })
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../', 'build')));
+    app.get('/*', (req, res) => {
+      res.sendFile(path.join(__dirname, '../', 'build', 'index.html'));
+    })
+  }

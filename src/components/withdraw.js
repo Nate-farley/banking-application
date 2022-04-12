@@ -41,14 +41,16 @@ function Withdraw(){
 
     try {
       const email = await getAuthenticatedUser()
-      setBalance(Number(balance) + Number(withdrawalAmount));
-      await axios.post(`localhost:3001/bank/withdraw?email=${email}&withdrawAmount=${withdrawalAmount}`, {}, {
-        headers: {}
+      await axios.post(`http://localhost:3001/bank/withdraw?email=${email}&withdrawAmount=${withdrawalAmount}`, {}, {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json'
+        }
       })
       await refreshBalance()
       setSuccess(true);
     } catch(error) {
-      setError(error);
+      setError('Transaction error');
       setSuccess(false);
     }
   }
@@ -84,7 +86,7 @@ function Withdraw(){
       <button onClick={handleOnPressWithdraw} disabled={withdrawalAmount.toString().length == 0} type="submit" className="btn btn-light">Withdraw</button>
       <br />
       {success  == true ? <p>Success! Balance Updated</p> : <p>{error}</p>}
-        <div>Balance: {localStorage.getItem('balance')}</div>
+        <div>Balance: {balance}</div>
       </div>
       }
     />

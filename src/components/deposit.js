@@ -45,7 +45,7 @@ function Deposit(){
       await refreshBalance()
       setSuccess(true);
     } catch(error) {
-      setError(error);
+      setError('Transaction error');
       setSuccess(false);
     }
   }
@@ -61,7 +61,6 @@ function Deposit(){
       }).then(response => {
         setBalance(response.data.balance)
       }).catch(err => {
-
       })
     }
   }
@@ -81,7 +80,7 @@ function Deposit(){
       <button onClick={handleOnPressDeposit} disabled={depositAmount.toString().length == 0} type="submit" className="btn btn-light">Deposit</button>
       <br />
       {success  == true ? <p>Success! Balance Updated</p> : <p>{error}</p>}
-      <div>Balance: {localStorage.getItem('balance')}</div>
+      <div>Balance: {balance}</div>
     </div>
       }
     />

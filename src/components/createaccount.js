@@ -60,6 +60,7 @@ function CreateAccount(){
     setName('');
     setEmail('');
     setPassword('');
+    setRole('')
     setShow(true);
   }
 

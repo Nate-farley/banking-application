@@ -21,7 +21,7 @@ MongoClient.connect(connectionString, { useNewUrlParser: true }, (err, client) =
 function createUser(email, password, name, role) {
     db.collection('users').find({ email }).toArray((error, result) => {
         if (error) {
-            throw new Error('Failed')
+            return
         }
 
         if (result.length === 0) {
@@ -36,7 +36,7 @@ function createUser(email, password, name, role) {
             return
         }
 
-        throw new Error('Failed')
+        return
     })
 }
 
@@ -44,7 +44,7 @@ function createUser(email, password, name, role) {
 function login(email, password) {
     db.collection('users').findOneAndUpdate({ email, password }, {$set: {authenticated: true}}, (err, doc) => {
         if (doc.lastErrorObject.updatedExisting != true) {
-            throw new Error('Failed')
+            return
         }
     })
 }
@@ -52,7 +52,7 @@ function login(email, password) {
 function logout(email) {
     db.collection('users').findOneAndUpdate({ email }, {$set: {authenticated: false}}, (err, doc) => {
         if (doc.lastErrorObject.updatedExisting != true) {
-            throw new Error('Failed')
+            return
         }
     })
 }
@@ -61,11 +61,11 @@ function deposit(email, depositAmount) {
     db.collection('users').find({ email }).toArray((error, result) => {
         if (error) {
             //do something if error
-            throw new Error('Failed')
+            return
         }
 
         if (result.length === 0) {
-            throw new Error('Failed')
+            return
         }
 
         const user = result[0]
@@ -73,7 +73,7 @@ function deposit(email, depositAmount) {
 
         db.collection('users').findOneAndUpdate({ email}, {$set: {balance: (Number(oldBalance) + Number(depositAmount)) }}, (err, doc) => {
             if (doc.lastErrorObject.updatedExisting != true) {
-                throw new Error('Failed')
+                return
             }
         })
 
@@ -83,11 +83,11 @@ function deposit(email, depositAmount) {
 function withdraw(email, withdrawAmount) {
     db.collection('users').find({ email }).toArray((error, result) => {
         if (error) {
-            throw new Error('Failed')
+            return
         }
 
         if (result.length === 0) {
-            throw new Error('Failed')
+            return
         }
 
         const user = result[0]
@@ -95,7 +95,7 @@ function withdraw(email, withdrawAmount) {
 
         db.collection('users').findOneAndUpdate({ email}, {$set: {balance: (Number(oldBalance) - Number(withdrawAmount)) }}, (err, doc) => {
             if (doc.lastErrorObject.updatedExisting != true) {
-                throw new Error('Failed')
+                return
             }
         })
 
@@ -111,13 +111,13 @@ async function transfer(ownerEmail, recipientEmail, amount) {
 
     await db.collection('users').findOneAndUpdate({ email: ownerEmail }, {$set: {balance: (Number(oldOwnerBalance) - Number(amount)) }}, (err, doc) => {
         if (doc.lastErrorObject.updatedExisting != true) {
-            throw new Error('Failed')
+            return
         }
     })
 
     await db.collection('users').findOneAndUpdate({ email: recipientEmail }, {$set: {balance: (Number(oldRecipientBalance) + Number(amount)) }}, (err, doc) => {
         if (doc.lastErrorObject.updatedExisting != true) {
-            throw new Error('Failed')
+            return
         }
     })
 }

@@ -114,10 +114,10 @@ app.get('/bank/balance', async (req, res) => {
     try {
         balance = await getUserBalance(email)
     } catch(error) {
-        res.sendStatus(500)
+        //res.sendStatus(500)
     }
 
-    res.json({ balance }).sendStatus(200)
+    res.json({ balance })
 })
 
 app.get('/bank/users', async (req, res) => {

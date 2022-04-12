@@ -50,7 +50,7 @@ function Transfer(){
       await refreshBalance()
       setSuccess(true);
     } catch(error) {
-      setError(error);
+      setError('Transaction error');
       setSuccess(false);
     }
   }

@@ -134,11 +134,11 @@ app.get('/bank/users', async (req, res) => {
 })
 
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '../', 'build')));
+    app.use(express.static(path.join('../', 'build')));
     app.get('*', (req, res) => {
         console.log('attempt')
-        const patha = path.join(__dirname, '../', 'build/index.html')
+        const patha = path.join('../', 'build/index.html')
         console.log('Send file path: ' + patha)
-      res.sendFile(path.join(__dirname, '../', 'build/index.html'), err => res.status(500).send(process.cwd() + '   --' + 'UHSDA: ' + err));
+      res.sendFile(path.join('../', 'build/index.html'), err => res.status(500).send(process.cwd() + '   --' + 'UHSDA: ' + err));
     })
   }

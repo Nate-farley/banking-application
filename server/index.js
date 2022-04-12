@@ -5,6 +5,7 @@ const PORT = 3001
 const { createUser, login, logout, deposit, withdraw, transfer, getUserBalance, getUsers } = require('./db')
 
 app.use(cors())
+app.use(express.json())
 
 app.use(function (req, res, next) {
     // Website you wish to allow to connect
@@ -27,6 +28,13 @@ app.use(function (req, res, next) {
 app.listen(PORT, () => {
     console.log(`App is listening on port ${PORT}`)
 })
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../frontend', 'build')));
+    app.get('/*', (req, res) => {
+      res.sendFile(path.join(__dirname, '../frontend', 'build', 'index.html'));
+    })
+  }
 
 app.post('/user/create', (req, res) => {
     const email = req.query.email

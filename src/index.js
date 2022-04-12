@@ -37,7 +37,7 @@ function Spa() {
 }
 
 ReactDOM.render(
-  <HashRouter>
+  <HashRouter basename='/'>
   <Spa/>
   </HashRouter>,
   document.getElementById('root')

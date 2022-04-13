@@ -10,8 +10,8 @@ This is a full stack banking application built with the MERN stack.  This applic
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 Open the .env file located in the root folder and make sure you provide to environment variables:
 ```
-$PORT=
-$MONGODB_CONNECTION_URL=
+$ PORT=
+$ MONGODB_CONNECTION_URL=
 ```
 
 ### Prerequisites
